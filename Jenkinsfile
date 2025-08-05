@@ -4,22 +4,22 @@ pipeline {
   stages {
     stage('Clone Repository') {
       steps {
-        git 'https://github.com/sreeja-creator-ai/node-js.git'
+        git 'https://github.com/sreeja-creator-ai/django-app.git'
       }
     }
 
     stage('Build & Deploy Containers') {
       steps {
-        sh 'docker-compose down || true'
-        sh 'docker-compose build'
-        sh 'docker-compose up -d'
+        bat 'docker-compose down || true'
+        bat 'docker-compose build'
+        bat 'docker-compose up -d'
       }
     }
 
     stage('Run Migrations & Collect Static') {
       steps {
-        sh 'docker-compose exec web python manage.py migrate'
-        sh 'docker-compose exec web python manage.py collectstatic --noinput'
+        bat 'docker-compose exec web python manage.py migrate'
+        bat 'docker-compose exec web python manage.py collectstatic --noinput'
       }
     }
   }
