@@ -18,8 +18,8 @@ pipeline {
 
     stage('Run Migrations & Collect Static') {
       steps {
-        bat 'docker-compose exec web python manage.py migrate'
-        bat 'docker-compose exec web python manage.py collectstatic --noinput'
+        bat 'docker-compose run web python manage.py migrate'
+        bat 'docker-compose run web sh -c "python manage.py migrate && python manage.py collectstatic --noinput"'
       }
     }
   }
